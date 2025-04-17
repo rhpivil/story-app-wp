@@ -195,7 +195,7 @@ export default class NewStoryPage {
     let blob = image;
 
     if (image instanceof String) {
-      blob = await convertBase64ToBlob(image, 'image/png');
+      blob = await convertBase64ToBlob(image, 'image/png'); // functionnya gada loh
     }
 
     const newDocumentation = {
@@ -238,7 +238,7 @@ export default class NewStoryPage {
     alert(message);
     this.#form.reset();
 
-    location.hash = '/';
+    location.hash = '/home';
   }
 
   showMapLoading() {
@@ -285,7 +285,7 @@ export default class NewStoryPage {
 
       const draggableMarker = this.#map.addMarker(
         [centerCoordinate.latitude, centerCoordinate.longitude],
-        { draggable: true }
+        { draggable: 'true' }
       );
 
       draggableMarker.addEventListener('move', event => {

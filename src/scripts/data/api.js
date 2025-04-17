@@ -7,6 +7,8 @@ const ENDPOINTS = {
   STORY: `${CONFIG.BASE_URL}/stories`,
   GUEST_STORY: `${CONFIG.BASE_URL}/stories/guest`,
   DETAIL_STORY: id => `${CONFIG.BASE_URL}/stories/${id}`,
+  SUBSCRIBE: `${CONFIG.BASE_URL}/notifications/subscribe`,
+  UNSUBSCRIBE: `${CONFIG.BASE_URL}/notifications/subscribe`,
 };
 
 export async function getData() {
@@ -32,7 +34,7 @@ export async function storeGuestStory({ description, photo, lat, lon }) {
   const fetchResponse = await fetch(ENDPOINTS.GUEST_STORY, options);
   const responseJson = await fetchResponse.json();
 
-  return {...responseJson, statusCode: fetchResponse.status};
+  return { ...responseJson, statusCode: fetchResponse.status };
 }
 
 export async function getLogin({ email, password }) {
@@ -104,6 +106,50 @@ export async function storeNewStory({ description, photo, lat, lon }) {
   };
 
   const fetchResponse = await fetch(ENDPOINTS.STORY, options);
+  const responseJson = await fetchResponse.json();
+
+  return responseJson;
+}
+
+export async function subscribePushNotification({
+  endpoint,
+  keys: { p256dh, auth },
+}) {
+  const accessToken = getAccessToken();
+  const data = JSON.stringify({
+    endpoint,
+    keys: { p256dh, auth },
+  });
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: data,
+  };
+
+  const fetchResponse = await fetch(ENDPOINTS.SUBSCRIBE, options);
+  const responseJson = await fetchResponse.json();
+
+  return responseJson;
+}
+
+export async function unsubscribePushNotifications({ endpoint }) {
+  const accessToken = getAccessToken();
+  const data = JSON.stringify({ endpoint });
+
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: data,
+  };
+
+  const fetchResponse = await fetch(ENDPOINTS.UNSUBSCRIBE, options);
   const responseJson = await fetchResponse.json();
 
   return responseJson;

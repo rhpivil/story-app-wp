@@ -27,7 +27,6 @@ export default class NewStoryPresenter {
         lon: lon,
       };
 
-      console.log(data);
       const response = await this.#model.storeNewStory(data);
 
       if (response.error) {

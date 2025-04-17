@@ -31,7 +31,7 @@ export default class StoryDetailPresenter {
       const response = await this.#model.getStoryById(this.#storyId);
 
       if (response.error) {
-        console.error('showStoryDetailErr', response.message);
+        console.error('showStoryDetailErr:', response.message);
         return;
       }
 

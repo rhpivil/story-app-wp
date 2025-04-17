@@ -112,10 +112,11 @@ header {
 
   display: flex;
   flex-direction: column;
-  gap: 10px 20px;
+  gap: 10px 5px;
 }
 
-.nav-list li a {
+.nav-list li a,
+.nav-list li button {
   padding: 6px 15px;
 
   display: block;
@@ -126,10 +127,24 @@ header {
   border-radius: 8px;
 }
 
-.nav-list li a:hover {
+.nav-list li a:hover,
+.nav-list li button:hover {
   background-color: #f9f7f7;
   color: #112d4e;
   transition: 0.2s;
+}
+
+.subscribe-button,
+.unsubscribe-button {
+  background-color: #112d4e;
+  border-style: none;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+.push-notification-tools {
+  display: flex;
 }
 
 /* MAIN */
@@ -156,10 +171,6 @@ header {
 
   .nav-list {
     flex-direction: row;
-  }
-
-  .nav-list li a {
-    display: inline-block;
   }
 
   .drawer-button {

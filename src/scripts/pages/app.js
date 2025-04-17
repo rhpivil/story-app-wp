@@ -1,13 +1,22 @@
 import routes from '../routes/routes';
 import { getActiveRoute } from '../routes/url-parser';
-import { transitionHelper } from '../utils/index';
+import {
+  transitionHelper,
+  setupSkipToMainContent,
+  isServiceWorkerAvailable,
+} from '../utils/index';
 import {
   generateAuthenticatedNavListTemplete,
   generateUnauthenticatedNavListTemplete,
+  generateSubscribeButtonTemplete,
+  generateUnsubscribeButtonTemplete,
 } from '../templete';
-import { getAccessToken } from '../utils/auth';
-import { getLogout } from '../utils/auth';
-import { setupSkipToMainContent } from '../utils/index';
+import { getAccessToken, getLogout } from '../utils/auth';
+import {
+  subscribe,
+  isCurrentPushSubscriptionAvailable,
+  unsubscribe,
+} from '../utils/notification-helper';
 
 class App {
   #content = null;
@@ -19,7 +28,7 @@ class App {
     this.#content = content;
     this.#drawerButton = drawerButton;
     this.#navigationDrawer = navigationDrawer;
-    this.#skipLinkButton = skipLinkButton
+    this.#skipLinkButton = skipLinkButton;
 
     this.#setupDrawer();
     setupSkipToMainContent(this.#skipLinkButton, this.#content);
@@ -69,23 +78,46 @@ class App {
     });
   }
 
+  async #setupPushNotification() {
+    const isLogin = !!getAccessToken();
+
+    if (isLogin) {
+      const pushNotificationTools = document.getElementById(
+        'push-notification-tools'
+      );
+      const isSubscribed = await isCurrentPushSubscriptionAvailable();
+
+      if (isSubscribed) {
+        pushNotificationTools.innerHTML = generateUnsubscribeButtonTemplete();
+        document
+          .getElementById('unsubscribe-button')
+          .addEventListener('click', () => {
+            unsubscribe().finally(() => {
+              this.#setupPushNotification();
+            });
+          });
+
+        return;
+      }
+
+      pushNotificationTools.innerHTML = generateSubscribeButtonTemplete();
+      document
+        .getElementById('subscribe-button')
+        .addEventListener('click', () => {
+          subscribe().finally(() => {
+            this.#setupPushNotification();
+          });
+        });
+    }
+
+    return;
+  }
+
   async renderPage() {
     const url = getActiveRoute();
     const route = routes[url];
 
-    if (!route) {
-      console.error(`Route for "${url}" not found.`);
-      return;
-    }
-  
     const page = route();
-  
-    if (!page || typeof page.render !== 'function') {
-      console.error(`Page object for route "${url}" is invalid:`, page);
-      return;
-    }
-
-    // const page = route();
 
     const transition = transitionHelper({
       updateDOM: async () => {
@@ -98,6 +130,10 @@ class App {
     transition.updateCallbackDone.then(() => {
       scrollTo({ top: 0, behavior: 'instant' });
       this.#setupNavigationList();
+
+      if (isServiceWorkerAvailable()) {
+        this.#setupPushNotification();
+      }
     });
   }
 }

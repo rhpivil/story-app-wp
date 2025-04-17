@@ -303,7 +303,7 @@ export default class HomePage {
 
       const draggableMarker = this.#map.addMarker(
         [centerCoordinate.latitude, centerCoordinate.longitude],
-        { draggable: true }
+        { draggable: 'true' }
       );
 
       draggableMarker.addEventListener('move', event => {

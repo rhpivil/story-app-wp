@@ -165,7 +165,7 @@ export default class Map {
 
     newMarker.addTo(layerGroupMarker);
     layerGroupMarker.addTo(this.#map);
-    return layerGroupMarker;
+    return newMarker;
   }
 
   changeCamera(coordinate, zoomLevel = null) {

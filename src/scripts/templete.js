@@ -11,6 +11,7 @@ export function generateAuthenticatedNavListTemplete() {
   return `
     <li><a href="#/home"><i class="fa-solid fa-house" aria-hidden="true"></i></i>Beranda</a></li>
     <li><a href="#/new-story"><i class="fa-solid fa-circle-plus" aria-hidden="true"></i>Tambah cerita</a></li>
+    <li><a href="#/"><i class="fa-solid fa-box" aria-hidden="true"></i>Cerita Tersimpan</a></li>
     <li id="push-notification-tools" class="push-notification-tools"></li>
     <li><a id="logout-button" href="#/logout"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>Logout</a></li>
   `;
@@ -18,7 +19,17 @@ export function generateAuthenticatedNavListTemplete() {
 
 export function generateSubscribeButtonTemplete() {
   return `
-    <button id="subscribe-button"><i class="fa-solid fa-bell" aria-hidden="true"></i>Subscribe</button>
+    <button id="subscribe-button" class="subscribe-button">
+      <i class="fa-solid fa-bell" aria-hidden="true"></i>Subscribe
+    </button>
+  `;
+}
+
+export function generateUnsubscribeButtonTemplete() {
+  return `
+    <button id="unsubscribe-button" class="unsubscribe-button">
+      <i class="fa-solid fa-bell-slash"></i></i>Unsubscribe
+    </button>
   `;
 }
 
