@@ -1,8 +1,8 @@
-export default class UserHomepagePresenter {
+export default class BookmarkPresenter {
   #view;
   #model;
 
-  constructor({ view, model }) {
+  constructor({ model, view }) {
     this.#view = view;
     this.#model = model;
   }
@@ -23,14 +23,9 @@ export default class UserHomepagePresenter {
     try {
       await this.showStoryListMap();
 
-      const response = await this.#model.getStories();
+      const response = await this.#model.getAllStories();
 
-      if (response.error) {
-        console.error('initialStoryItem:', response.message);
-        return;
-      }
-
-      this.#view.populateStoryItem(response.listStory);
+      this.#view.populateStoryItem(response);
     } catch (error) {
       console.error('initialStoryItemErr:', error);
     } finally {

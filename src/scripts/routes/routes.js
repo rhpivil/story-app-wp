@@ -1,3 +1,4 @@
+import BookmarkPage from '../pages/bookmark/bookmark-page';
 import HomePage from '../pages/home/home-page';
 import LoginPage from '../pages/login/login-page';
 import NewStoryPage from '../pages/new/new-story-page';
@@ -17,6 +18,7 @@ const routes = {
   '/home': () => checkAuthenticatedRoute(new UserHomepage()),
   '/stories/:id': () => checkAuthenticatedRoute(new StoryDetailPage()),
   '/new-story': () => checkAuthenticatedRoute(new NewStoryPage()),
+  '/bookmark': () => checkAuthenticatedRoute(new BookmarkPage()),
 };
 
 export default routes;

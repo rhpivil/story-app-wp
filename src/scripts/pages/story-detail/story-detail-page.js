@@ -1,9 +1,15 @@
 import { parseActivePathname } from '../../routes/url-parser';
 import StoryDetailPresenter from './story-detail-presenter';
 import * as StoryAPI from '../../data/api';
-import { generateStoryDetailTemplete } from '../../templete';
+import Database from '../../data/database';
+import {
+  generateRemoveStoryButtonTemplate,
+  generateSaveStoryButtonTemplate,
+  generateStoryDetailTemplete,
+} from '../../templete';
 import Map from '../../utils/map';
 import loaderAnimation from '../../utils/animation';
+
 export default class StoryDetailPage {
   #presenter = null;
   #map = null;
@@ -11,9 +17,10 @@ export default class StoryDetailPage {
   async render() {
     return `
       <section class="container">
-        <div id="story-loading-container"></div>
         <div class="story-detail-container">
+        <div id="story-loading-container"></div>
           <div class="story-detail" id="story-detail"></div>
+          <div id="save-actions-container"></div>
           <h1 class="header-title">Peta Lokasi</h1>
           <div id="map" class="story-detail-map"></div>
           <div id="map-loading-container"></div>
@@ -26,6 +33,7 @@ export default class StoryDetailPage {
     this.#presenter = new StoryDetailPresenter(parseActivePathname().id, {
       view: this,
       model: StoryAPI,
+      dbModel: Database,
     });
 
     this.#presenter.showStoryDetail();
@@ -54,6 +62,48 @@ export default class StoryDetailPage {
       this.#map.changeCamera(coordinate);
       this.#map.addMarker(coordinate, markerOptions, popupOptions);
     }
+
+    this.#presenter.showSaveButton();
+  }
+
+  renderSaveButton() {
+    document.getElementById('save-actions-container').innerHTML =
+      generateSaveStoryButtonTemplate();
+
+    document
+      .getElementById('save-story')
+      .addEventListener('click', async () => {
+        await this.#presenter.saveStory();
+        await this.#presenter.showSaveButton();
+      });
+  }
+
+  saveToBookmarkSuccessfully(message) {
+    console.log(message);
+  }
+
+  saveToBookmarkFailed(message) {
+    alert(message);
+  }
+
+  renderRemoveButton() {
+    document.getElementById('save-actions-container').innerHTML =
+      generateRemoveStoryButtonTemplate();
+
+    document
+      .getElementById('remove-story')
+      .addEventListener('click', async () => {
+        await this.#presenter.removeStory();
+        await this.#presenter.showSaveButton();
+      });
+  }
+
+  removeFromBookmarkSuccessfully(message) {
+    console.log(message);
+  }
+
+  removeFromBookmarkFailed(message) {
+    alert(message);
   }
 
   showMapLoading() {

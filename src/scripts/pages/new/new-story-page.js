@@ -235,7 +235,7 @@ export default class NewStoryPage {
   }
 
   storeDataSuccessfully(message) {
-    alert(message);
+    console.log(message);
     this.#form.reset();
 
     location.hash = '/home';
