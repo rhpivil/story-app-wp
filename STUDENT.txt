@@ -1,2 +1,2 @@
-APP_URL=<url_aplikasi>
-MAP_SERVICE_API_KEY=<api_key>
+APP_URL=<https://storyapp-d39.netlify.app/>
+MAP_SERVICE_API_KEY=<B8aJ0906SfepIpkDgzGi>

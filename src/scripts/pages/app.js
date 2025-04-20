@@ -1,4 +1,5 @@
 import routes from '../routes/routes';
+
 import { getActiveRoute } from '../routes/url-parser';
 import {
   transitionHelper,
@@ -17,6 +18,7 @@ import {
   isCurrentPushSubscriptionAvailable,
   unsubscribe,
 } from '../utils/notification-helper';
+import NotFoundPage from './not-found/not-found-page';
 
 class App {
   #content = null;
@@ -114,10 +116,11 @@ class App {
   }
 
   async renderPage() {
+    let page;
     const url = getActiveRoute();
     const route = routes[url];
 
-    const page = route();
+    route ? (page = route()) : (page = new NotFoundPage());
 
     const transition = transitionHelper({
       updateDOM: async () => {

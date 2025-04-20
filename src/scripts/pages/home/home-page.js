@@ -113,7 +113,6 @@ export default class HomePage {
   }
 
   async afterRender() {
-    // Do your job here
     this.#presenter = new HomePresenter({
       view: this,
       model: StoryAPI,

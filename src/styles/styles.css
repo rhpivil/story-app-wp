@@ -732,3 +732,25 @@ i {
 .guest-form-photo-buttons {
   margin-top: 8px;
 }
+
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.notfound-container h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.notfound-container p {
+  font-size: 1rem;
+}
+
+.notfound-container img {
+  width: 500px;
+  object-fit: cover;
+}

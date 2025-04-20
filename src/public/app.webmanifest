@@ -6,7 +6,7 @@
   "short_name": "Story App",
   "description": "Aplikasi berbagi cerita seputar dicoding.",
   "display": "standalone",
-  "background_color": "#FFFFFF",
+  "background_color": "#000000",
   "theme_color": "#112d4e",
   "icons": [
     {
@@ -44,6 +44,47 @@
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/screenshots/storyapp-1.png",
+      "sizes": "1920x1043",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/storyapp-2.png",
+      "sizes": "1920x1043",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/storyapp-3.png",
+      "sizes": "1080x2280",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/storyapp-4.png",
+      "sizes": "1080x2280",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cerita Baru",
+      "short_name": "Baru",
+      "description": "Membuat cerita baru.",
+      "url": "/?source=pwa#/new-story",
+      "icons": [
+        {
+          "src": "images/icons/add-icons.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
     }
   ]
 }

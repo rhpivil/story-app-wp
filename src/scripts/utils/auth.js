@@ -43,7 +43,7 @@ export function checkUnauthenticatedRouteOnly(page) {
   const isLogin = !!getAccessToken();
 
   if (unauthenticatedRoutesOnly.includes(url) && isLogin) {
-    location.hash = '#/home';
+    location.hash = '/home';
     return null;
   }
 

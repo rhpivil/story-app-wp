@@ -88,6 +88,10 @@
   .story-detail-additional-data {
     justify-content: start;
   }
+
+  .notfound-container img {
+    width: 400px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -105,5 +109,9 @@
 
   .story-list {
     grid-template-columns: repeat(1, minmax(200px, 1fr));
+  }
+
+  .notfound-container img {
+    width: 280px;
   }
 }
